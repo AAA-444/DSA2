@@ -1,47 +1,55 @@
 #include <stdio.h>
+
 int main(){
-char STR[100], PAT[100], REP[100], ans[100];
-int i, j, c, m, k, flag = 0; // Declare variables for indexing and a flag to check if 
-pattern is found
-printf("\nEnter the main string: \n"); fgets(STR, 100, stdin);
-printf("\nEnter the pattern string: \n"); fgets(PAT, 100, stdin);
-printf("\nEnter the replace string: \n"); fgets(REP, 100, stdin);
-// Initialize the indices (i, j, c, m) for pattern and string traversal 
-i = m = c = j = 0;
-// Start a loop to traverse through the main string (STR)
-while(STR[c] != '\0'){ // Continue until the end of the string is reached
-// Check if the current character of STR matches the current character of PAT 
-if(STR[m] == PAT[i]){
-i++; // Move to the next character of PAT 
-m++; // Move to the next character of STR
-flag = 1; // Set flag to 1 indicating that we found a match
-// Check if we have reached the end of the pattern string (PAT) 
-if(PAT[i] == '\0'){
-// If the pattern has been fully matched, replace it with REP
-for(k = 0; REP[k] != '\0'; k++, j++) // Copy characters from REP to ans 
-ans[j] = REP[k];
-i = 0; // Reset the pattern index i to start again
-c = m; // Move the current index c to the next position in STR after the
-matched pattern
+    
+    char STR[100], PAT[100], REP[100], ans[100];
+    int i, j, c, m, k, flag = 0;  // Declare variables for indexing and a flag to check if pattern is found
+    
+    printf("\nEnter the main string: \n"); fgets(STR, 100, stdin);
+    
+    printf("\nEnter the pattern string: \n"); fgets(PAT, 100, stdin);
+    
+    printf("\nEnter the replace string: \n"); fgets(REP, 100, stdin);
+
+    // Initialize the indices (i, j, c, m) for pattern and string traversal
+    i = m = c = j = 0;
+
+    // Start a loop to traverse through the main string (STR)
+    while(STR[c] != '\0'){  // Continue until the end of the string is reached
+        // Check if the current character of STR matches the current character of PAT
+        if(STR[m] == PAT[i]){
+            i++;  // Move to the next character of PAT
+            m++;  // Move to the next character of STR
+            flag = 1;  // Set flag to 1 indicating that we found a match
+            // Check if we have reached the end of the pattern string (PAT)
+            if(PAT[i] == '\0'){
+                // If the pattern has been fully matched, replace it with REP
+                for(k = 0; REP[k] != '\0'; k++, j++)  // Copy characters from REP to ans
+                    ans[j] = REP[k];
+                i = 0;  // Reset the pattern index i to start again
+                c = m;  // Move the current index c to the next position in STR after the matched pattern
+            }
+        }
+        else{
+            // If no match, copy the current character of STR to ans
+            ans[j] = STR[c];
+            j++;  // Increment the result string index
+            c++;  // Increment the index of the main string STR
+            m = c;  // Set m to the current index in STR (for next matching)
+            i = 0;  // Reset the pattern index to start searching again
+        }
+    }
+
+    // After completing the loop, check if a pattern was found and replaced
+    if(flag == 0){
+        printf("Pattern not found");  // If flag is still 0, no pattern was matched
+    }
+    else{
+        ans[j] = '\0';  // Null-terminate the resultant string
+        // Print the final result string with replacements
+        printf("\nThe resultant string is: %s\n", ans);
+    }
+
+    return 0;
 }
-}
-else{
-// If no match, copy the current character of STR to ans 
-ans[j] = STR[c];
-j++; // Increment the result string index
-c++; // Increment the index of the main string STR
-m = c; // Set m to the current index in STR (for next matching) 
-i = 0; // Reset the pattern index to start searching again
-}
-}
-// After completing the loop, check if a pattern was found and replaced 
-if(flag == 0){
-printf("Pattern not found"); // If flag is still 0, no pattern was matched
-}
-else{
-ans[j] = '\0'; // Null-terminate the resultant string
-// Print the final result string with replacements 
-printf("\nThe resultant string is: %s\n", ans);
-}
-return 0;
-}
+
